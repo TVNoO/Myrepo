@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head">
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+<title>AMS Server</title>
+
+<!-- Font Awesome -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css" />
+
+<!-- Bootstrap core CSS -->
+<link href="../static/css/bootstrap.min.css"
+	th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+
+<!-- Material Design Bootstrap -->
+<link href="../static/css/mdb.min.css" th:href="@{/css/mdb.min.css}"
+	rel="stylesheet" />
+
+<!-- Your custom styles (optional) -->
+<link href="../static/css/style.css" th:href="@{/css/mdb./style.css}"
+	rel="stylesheet" />
+<link href="../static/css/jquery-ui.min.css" th:href="@{/css/jquery-ui.min.css}"
+		rel="stylesheet" />
+</head>
+<body>
+
+	<nav th:replace="layout :: header"></nav>
+
+	<br></br><br></br><br></br>
+			<div class="text-center">
+             <h1>SERVER REGISTRATION SYSTEM</h1>
+           
+        	</div>
+        	<br></br>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>No</th>
+				<th>Server</th>
+				<th>Platform</th>
+				<th>SSHUser</th>
+				<th>Root Password</th>
+				<th>Email</th>
+				<th>Start Date</th>
+				<th>End Date</th>
+				<th>AMS Version</th>
+				<th>Note</th>
+				<th>#</th>
+			</tr>
+		</thead>
+		<tbody>
+			
+			<tr th:each="server, i : ${list}">
+				
+				<td th:text="${i.count}"></td>
+				<td th:text="${server.serverName}"></td>
+				<td th:text="${server.serverPlatform}"></td>
+				<td th:text="${server.serverSSH}"></td>
+				<td th:text="${server.rootPassword}"></td>
+				
+				<th:block th:switch="${server.getUser()}">
+					<td th:case="null" ></td>
+					<td th:case="*" th:text="${server.getUser().getEmail()}" ></td>
+				</th:block>
+				
+				<td th:text="${server.startDate}"></td>
+				<td th:text="${server.endDate}"></td>
+				<td th:text="${server.AMSversion}"></td>
+				<td th:text="${server.note}"></td>
+				
+				<th:block th:switch="${session.user}" >
+					<td th:case="null"></td>
+					<td th:case="*">
+						<th:block th:switch="${server.getUser()}">
+							<a th:case="null" th:href="@{/app/server/{id}/register(id=${server.id})}" class="blue-text"><i class="fa fa-user"></i></a>
+							<td th:case="*">
+								<th:block th:if="${server.getUser()}">
+								<div th:switch="${server.getUser().getEmail()}" >
+								<td th:case="${session.user}">
+								<a  th:href="@{/app/server/{id}/edit(id=${server.id})}" class="teal-text"><i class="fa fa-pencil"></i></a> 
+								<a th:href="@{/app/server/{id}/unRegister(id=${server.id})}" class="red-text"><i class="fa fa-times"></i></a>
+								</td>
+								</div>
+								</th:block>
+							</td>
+						</th:block>
+					
+					 </td>
+				 </th:block>
+				 
+			</tr>
+
+		</tbody>
+	</table>
+
+
+	<br></br><br></br><br></br>
+	<footer th:replace="layout :: footer"></footer>
+
+
+
+	<!-- SCRIPTS -->
+
+	<!-- JQuery -->
+	<script type="text/javascript" src="../static/js/jquery-2.2.3.min.js"
+		th:src="@{/js/jquery-2.2.3.min.js}"></script>
+
+	<!-- Bootstrap tooltips -->
+	<script type="text/javascript" src="../static/js/tether.min.js"
+		th:src="@{/js/tether.min.js}"></script>
+
+	<!-- Bootstrap core JavaScript -->
+	<script type="text/javascript" src="../static/js/bootstrap.min.js"
+		th:src="@{/js/bootstrap.min.js}"></script>
+
+	<!-- MDB core JavaScript -->
+	<script type="text/javascript" src="../static/js/mdb.min.js"
+		th:src="@{/js/mdb.min.js}"></script>
+		
+	<script type="text/javascript" src="../static/js/jquery-ui.min.js"
+		th:src="@{/js/jquery-ui.min.js}"></script>
+    
+    
+    <script type="text/javascript" th:inline="javascript">
+  	$( function() {
+  		var list = [[${list}]];
+
+  		var l = [];
+  		var i;
+  		for(x in list) {
+  			if(list[x].user == null) {
+  				//
+  			} else l.push(list[x].user.email);
+  		}
+
+	   	$( "#tags" ).autocomplete({
+	      source: l
+	    });
+  	});
+  </script>
+</body>
+</html>

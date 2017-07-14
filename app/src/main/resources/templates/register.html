@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head">
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+	
+	<!-- Font Awesome -->
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css" />
+	
+	<!-- Bootstrap core CSS -->
+	<link href="../static/css/bootstrap.min.css"
+		th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+	
+	<!-- Material Design Bootstrap -->
+	<link href="../static/css/mdb.min.css" th:href="@{/css/mdb.min.css}"
+		rel="stylesheet" />
+	
+	<!-- Your custom styles (optional) -->
+	<link href="../static/css/style.css" th:href="@{/css/mdb./style.css}"
+		rel="stylesheet" />
+		
+</head>
+<body>
+	<nav th:replace="layout :: header"></nav>
+	<br></br><br></br><br></br>
+	<div class="container">
+	<div class="offset-4 col-md-4">
+<!--Form with header-->
+<div class="card">
+    <div class="card-block">
+		<form id="user-form" action="/app/doRegister" method="post">
+        <!--Header-->
+        <div class="form-header blue">
+            <h3><i class="fa fa-user"></i> Register:</h3>
+        </div>
+
+        <!--Body-->
+        
+        <div class="md-form">
+            <i class="fa fa-envelope prefix"></i>
+            <input type="text" id="form2" class="form-control" name="email" />
+            <label for="form2">Your email</label>
+        </div>
+
+        <div class="md-form">
+            <i class="fa fa-lock prefix"></i>
+            <input type="password" id="form4" class="form-control" name="password" />
+            <label for="form4">Your password</label>
+        </div>
+
+        <div class="text-center">
+            <button class="btn blue">Sign up</button>
+            <hr></hr>
+            <fieldset class="form-group">
+                <input type="checkbox" id="checkbox1" />
+                <label for="checkbox1">Subscribe me to the newsletter</label>
+            </fieldset>
+        </div>
+        </form>
+</div>
+    </div>
+</div>
+</div>
+<!--/Form with header-->
+	<br></br>
+	<footer th:replace="layout :: footer"></footer>
+	
+	
+	<!-- SCRIPTS -->
+
+	<!-- JQuery -->
+	<script type="text/javascript" src="../static/js/jquery-3.1.1.min.js"
+		th:src="@{/js/jquery-3.1.1.min.js}"></script>
+	<script type="text/javascript" src="../static/js/jquery.validate.js" 
+		th:src="@{/js/jquery.validate.js}" >
+	</script>
+
+	<!-- Bootstrap tooltips -->
+	<script type="text/javascript" src="../static/js/tether.min.js"
+		th:src="@{/js/tether.min.js}"></script>
+
+	<!-- Bootstrap core JavaScript -->
+	<script type="text/javascript" src="../static/js/bootstrap.min.js"
+		th:src="@{/js/bootstrap.min.js}"></script>
+
+	<!-- MDB core JavaScript -->
+	<script type="text/javascript" src="../static/js/mdb.min.js"
+		th:src="@{/js/mdb.min.js}"></script>
+		
+	<!-- SCRIPT -->
+	<script type="text/javascript">
+           
+            $(document).ready(function () {
+                $("#user-form").validate({
+                    rules: {
+                       
+                        password: {
+                            required: true,
+                            minlength: 6
+                        },
+                       
+                        email: {
+                            required: true,
+                            email: true
+                        }
+                    },
+                    messages: {
+                       
+                        userPass: {
+                            required: "Bạn chưa nhập mật khẩu",
+                            minlength: "Mật khẩu phải có ít nhất 6 ký tự"
+                        },
+                        
+                        userEmail: "Email không hợp lệ"
+                    },
+                    errorElement: "em",
+                    errorPlacement: function (error, element) {
+                        // Add the `help-block` class to the error element
+                        error.addClass("help-block");
+                        if (element.prop("type") === "button") {
+                            error.insertAfter(element.parent("label"));
+                        } else {
+                            error.insertAfter(element);
+                        }
+                    },
+                    highlight: function (element, errorClass, validClass) {
+                        $(element).parents(".s").addClass("has-error").removeClass("has-success");
+                    },
+                    unhighlight: function (element, errorClass, validClass) {
+                        $(element).parents(".s").addClass("has-success").removeClass("has-error");
+                    }
+                });
+            });
+        </script>
+</body>
+</html>
