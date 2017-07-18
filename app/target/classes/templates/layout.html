@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head">
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+	<link href="../static/css/jquery-ui.min.css" th:href="@{/css/jquery-ui.min.css}"
+		rel="stylesheet" />
+	
+
+</head>
+<body>
+    
+   
+         <!--Navbar purple-->
+                <nav class="navbar navbar-toggleable-md navbar-dark blue" th:fragment="header">
+                    <div class="container">
+                        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav2" aria-controls="navbarNav2" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <a class="navbar-brand" href="/app/home">
+                            <strong>AMS</strong>
+                        </a>
+                        <div>
+                        	<form class="form-inline waves-effect waves-light">
+                                <input class="form-control pull-right" type="text" placeholder="Search" id="tags"/>
+                        	</form>      
+                        </div>
+                    <th:block th:switch="${session.user}">    
+                    
+                        <div th:case="null" class="collapse navbar-collapse" id="navbarNav2">
+                     
+                            <ul class="navbar-nav ml-auto nav-flex-icons">
+                                
+                                <li class="nav-item dropdown">
+                                   <a href="/app/login">Login&nbsp;&nbsp;</a>
+                                </li>
+                                
+                                <li class="nav-item dropdown">
+                                   <a href="/app/register">Register</a>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div th:case="*" class="collapse navbar-collapse" id="navbarNav2">
+                           
+                            <ul class="navbar-nav ml-auto nav-flex-icons">
+                                
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle waves-effect waves-light" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><i class="fa fa-user"></i></a>
+                                    <div class="dropdown-menu dropdown-secondary dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
+                                        <a class="dropdown-item waves-effect waves-light" href="#" th:text="${session.user}"></a>
+                                        <a class="dropdown-item waves-effect waves-light" href="#">Profile</a>
+                                        <a class="dropdown-item waves-effect waves-light" href="/app/doLogout">Logout</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </th:block>
+                        
+                    </div>
+                </nav>
+                <!--/.Navbar purple-->
+   
+
+   
+         <!--Footer-->
+        <footer class="page-footer blue center-on-small-only" th:fragment="footer" >
+
+            <!--Footer Links-->
+            <div class="container-fluid">
+                <div class="row">
+
+                    <!--First column-->
+                    <div class="col-md-6">
+                        <h5 class="title">AMS Server</h5>
+                        <p>This is a system management ...</p>
+                    </div>
+                    <!--/.First column-->
+
+                    <!--Second column-->
+                    <div class="col-md-6">
+                        <h5 class="title">Links</h5>
+                        <ul>
+                            <li><a href="#!">Link 1</a></li>
+                            <li><a href="#!">Link 2</a></li>
+                            <li><a href="#!">Link 3</a></li>
+                            <li><a href="#!">Link 4</a></li>
+                        </ul>
+                    </div>
+                    <!--/.Second column-->
+                </div>
+            </div>
+            <!--/.Footer Links-->
+
+            <!--Copyright-->
+            <div class="footer-copyright">
+                <div class="container-fluid">
+                    © 2017 Copyright:  TVN
+
+                </div>
+            </div>
+            <!--/.Copyright-->
+
+        </footer>
+        <!--/.Footer-->
+        
+        
+  	<!-- JS -->
+  	<script type="text/javascript" src="../static/js/jquery-ui.min.js"
+		th:src="@{/js/jquery-ui.min.js}"></script>
+    
+    
+</body>
+</html>
